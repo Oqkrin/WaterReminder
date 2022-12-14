@@ -2,5 +2,5 @@ ImageFile = "drink.gif"
 IconFile = "Icon.png"
 AudioFile = "drink.wav"
 ImageScalingFactor = 0.205
-Volume = 0.8
+Volume = 1.0
 waitTimeForRepetition = 15 #IN MINUTES

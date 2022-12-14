@@ -17,10 +17,6 @@ public class SoundPlayer extends Ananke {
 	static Long currentFrame;
 	static Clip clip;
 
-	private SoundPlayer() {
-
-	}
-
 	public static void play() throws LineUnavailableException, IOException, UnsupportedAudioFileException {
 		audioInputStream = AudioSystem.getAudioInputStream(fileAudio);
 		clip = AudioSystem.getClip();
@@ -32,6 +28,10 @@ public class SoundPlayer extends Ananke {
 	public static void stop() {
 		currentFrame = 0L;
 		clip.stop();
+	}
+
+	private SoundPlayer() {
+
 	}
 
 }

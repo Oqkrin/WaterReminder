@@ -14,10 +14,6 @@ public class ScheduleMaker extends Ananke {
 
 	static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-	private ScheduleMaker() {
-
-	}
-
 	static final Runnable clearReminder = () -> {
 		window.setVisible(false);
 		SoundPlayer.stop();
@@ -37,6 +33,10 @@ public class ScheduleMaker extends Ananke {
 
 	public static void scheduler() {
 		scheduler.scheduleWithFixedDelay(remindWater, 0, REPETITIONTIME, TimeUnit.MINUTES);
+	}
+
+	private ScheduleMaker() {
+
 	}
 
 }

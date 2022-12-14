@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TooManyListenersException;
 
@@ -25,24 +26,18 @@ public class DragAndDrop extends Ananke {
 
 	protected static List<File> files;
 
-	private DragAndDrop() {
-	}
-
 	public static void createDragAndDropMenu(String file) throws TooManyListenersException {
 
-		var dndWindow = new JWindow();
-		var menu = new ImageIcon(new ImageIcon(ASSETSPATH + "dndMenu.png").getImage().getScaledInstance(300,300, Image.SCALE_SMOOTH));
-		var litMenu = new ImageIcon(new ImageIcon(ASSETSPATH + "dndMenuLit.png").getImage().getScaledInstance(300,300, Image.SCALE_SMOOTH));
-		WindowMaker.createWindow(dndWindow, menu);
+		var menu = new ImageIcon(
+				new ImageIcon(ASSETSPATH + "dndMenu.png").getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
+		var litMenu = new ImageIcon(new ImageIcon(ASSETSPATH + "dndMenuLit.png").getImage().getScaledInstance(300, 300,
+				Image.SCALE_SMOOTH));
+		
+		ArrayList<JWindow> windowArray = (ArrayList<JWindow>) WindowMaker.createWindow(new JWindow(), menu);
 
-		// Create a new DropTarget and specify that it should accept files
-		DropTarget dropTarget = new DropTarget(dndWindow, DnDConstants.ACTION_COPY, null, true);
-
-		// Implement a DropTargetListener to handle the dropped files
-		dropTarget.addDropTargetListener(new DropTargetListener() {
+		new DropTarget(windowArray.get(1), DnDConstants.ACTION_COPY, null, true).addDropTargetListener(new DropTargetListener() {
 
 			public void dragEnter(DropTargetDragEvent dtde) {
-				
 				dndLabel.setIcon(litMenu);
 			}
 
@@ -51,32 +46,35 @@ public class DragAndDrop extends Ananke {
 			}
 
 			public void dragOver(DropTargetDragEvent dtde) {
-			}
-
-			public void dropActionChanged(DropTargetDragEvent dtde) {
+				dndLabel.setIcon(menu);
 			}
 
 			@SuppressWarnings("unchecked")
 			public void drop(DropTargetDropEvent dtde) {
-
+				
 				dtde.acceptDrop(dtde.getDropAction());
-				try {
+				try {	
 					files = (List<File>) dtde.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
-				} catch (UnsupportedFlavorException | IOException e) {
+					for (File i : files) {
+						Files.delete(Paths.get(ASSETSPATH + file));
+						Files.copy(Paths.get(i.getCanonicalPath()), Paths.get(ASSETSPATH + file));
+						windowArray.get(1).dispose();
+						windowArray.get(0).dispose();
+					}					
+				} 
+				catch (UnsupportedFlavorException | IOException e) {
 					e.printStackTrace();
 				}
 
-				for (File i : files) {
-
-					try {
-						// Copy the source file to the destination
-						Files.delete(Paths.get(ASSETSPATH + file));
-						Files.copy(Paths.get(i.getCanonicalPath()), Paths.get(ASSETSPATH + file));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
 			}
+
+			@Override
+			public void dropActionChanged(DropTargetDragEvent dtde) {
+			}
+
 		});
+	}
+
+	private DragAndDrop() {
 	}
 }
