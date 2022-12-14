@@ -12,8 +12,8 @@ import com.moandjiezana.toml.Toml;
 
 public class Ananke {
 	
-	protected static final String ASSETSPATH = "./src/assets/";
-    private static final String CONFIGPATH = "./src/configuration/";
+	protected static final String ASSETSPATH = "./assets/";
+    private static final String CONFIGPATH = "./configuration/";
     private static final String CONFIGFILE = "config.toml";
     protected static final File config = new File(CONFIGPATH + CONFIGFILE);
 
