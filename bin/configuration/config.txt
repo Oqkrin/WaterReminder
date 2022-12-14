@@ -1,0 +1,8 @@
+//image that gets played with reminder:
+drink.gif
+//scaling factor 
+0.205
+//audio of reminder
+drink.wav
+//volume factor
+0.004

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+   <groupId>net.oqkring</groupId>
+   <artifactId>WaterReminder</artifactId>
+   <packaging>jar</packaging>
+   <version>1</version>
+   <name>waterreminder</name>
+
+	<dependencies>
+
+	<dependency>
+		<groupId>com.moandjiezana.toml</groupId>
+		<artifactId>toml4j</artifactId>
+		<version>0.7.2</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.openjfx</groupId>
+		<artifactId>javafx-controls</artifactId>
+		<version>19</version>
+	</dependency>
+	</dependencies>
+	
+
+	
+	<!-- Force Eclipse and Maven to use a Java 8 JDK compiler-->
+<properties>
+  <maven.compiler.target>1.8</maven.compiler.target>
+  <maven.compiler.source>1.8</maven.compiler.source>
+</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.8</version>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+
